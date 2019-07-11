@@ -1,4 +1,4 @@
-package org.corbin.oss.base.oss;
+package org.corbin.oss.base;
 /*
  * Copyright (c) 2018 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +17,7 @@ package org.corbin.oss.base.oss;
 
 import com.aliyun.oss.OSSClient;
 import org.corbin.oss.base.SpringUtils;
+import org.corbin.oss.base.oss.AliossConfigProperties;
 import org.springframework.util.Assert;
 
 /**
@@ -37,7 +38,6 @@ public class AliossSupport {
 
     /**
      * 返回默认ossClient，即使用配置文件初始化的ossclient
-     *
      * @return
      */
     public static OSSClient defaultOssClient() {

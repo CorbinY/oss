@@ -33,7 +33,7 @@ import org.springframework.context.annotation.PropertySource;
 //  - 表示下一级的连接符
 @ConfigurationProperties(prefix = "alibaba.cloud.oss-default")
 @PropertySource(value = "classpath:oss-config.yml", ignoreResourceNotFound = true, encoding = "UTF-8")
-public class AliossConfigProperties  {
+public class AliossConfigProperties {
 
 
     /**
@@ -61,11 +61,21 @@ public class AliossConfigProperties  {
     private String bucketName;
 
     /**
-     *  oss默认回调域名地址，非必要初始化oss连接必要参数
+     * oss默认回调域名地址，非必要初始化oss连接必要参数
      */
     @Value("${callbackDomain}")
     private String callbackDomain;
 
+    /**
+     * 链接超时时长
+     */
+    @Value("${connectionTimeout}")
+    private Integer connectionTimeout;
 
+    /**
+     * 最大重连次数
+     */
+    @Value("${maxErrorRetry}")
+    private Integer maxErrorRetry;
 
 }

@@ -14,7 +14,13 @@ package org.corbin.oss.base.oss;
  *
  * @author cn-src
  */
+
+import com.aliyun.oss.ClientConfiguration;
 import com.aliyun.oss.OSSClient;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -23,16 +29,26 @@ import org.springframework.util.Assert;
 /**
  * @author yin
  * @date 2019/07/04
+ * 使用factory创建的bean，请优先使用@Autowise注入
+ * 使用构造方法注入时，other object = this bean 时，other object=null=this object！！！！
+ * 但是，在方法中this beaan 调用其他方法可正常使用
  */
-public class AliossClientFactoryBean implements FactoryBean<OSSClient> , InitializingBean, DisposableBean {
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class AliossClientFactoryBean implements FactoryBean<OSSClient>, InitializingBean, DisposableBean {
     private OSSClient ossClient;
 
     private String endpoint;
     private String accessKeyId;
     private String accessKeySecret;
+    private Integer connectionTimeout;
+    private Integer maxErrorRetry;
+
 
     @Override
-    public OSSClient getObject()  {
+    public OSSClient getObject() {
         return this.ossClient;
     }
 
@@ -54,23 +70,19 @@ public class AliossClientFactoryBean implements FactoryBean<OSSClient> , Initial
     }
 
     @Override
-    public void afterPropertiesSet(){
+    public void afterPropertiesSet() {
 
         Assert.notNull(this.accessKeyId, "'accessKeyId' must be not null");
         Assert.notNull(this.accessKeySecret, "'accessKeySecret' must be not null");
         Assert.notNull(this.endpoint, "'endpoint' must be not null");
-        this.ossClient = new OSSClient(this.endpoint, this.accessKeyId, this.accessKeySecret);
+        Assert.notNull(this.maxErrorRetry, "'maxErrorRetry' must be not null");
+        Assert.notNull(this.connectionTimeout, "'connectionTimeout' must be not null");
+
+        ClientConfiguration configuration = new ClientConfiguration();
+        configuration.setConnectionTimeout(this.connectionTimeout);
+        configuration.setMaxErrorRetry(this.maxErrorRetry);
+
+        this.ossClient = new OSSClient(this.endpoint, this.accessKeyId, this.accessKeySecret, configuration);
     }
 
-    public void setEndpoint(final String endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    public void setAccessKeyId(final String accessKeyId) {
-        this.accessKeyId = accessKeyId;
-    }
-
-    public void setAccessKeySecret(final String accessKeySecret) {
-        this.accessKeySecret = accessKeySecret;
-    }
 }

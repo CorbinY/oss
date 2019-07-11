@@ -37,12 +37,20 @@ public class AliossConfig {
         this.ossProperties = ossProperties;
     }
 
+    /**
+     * 创建OSSCLient bean
+     * @return
+     */
     @Bean
     public AliossClientFactoryBean aliossClientFactoryBean() {
-        final AliossClientFactoryBean factoryBean = new AliossClientFactoryBean();
-        factoryBean.setEndpoint(this.ossProperties.getEndpoint());
-        factoryBean.setAccessKeyId(this.ossProperties.getAccessKeyId());
-        factoryBean.setAccessKeySecret(this.ossProperties.getAccessKeySecret());
+        final AliossClientFactoryBean factoryBean = AliossClientFactoryBean
+                .builder()
+                .endpoint(this.ossProperties.getEndpoint())
+                .accessKeyId(this.ossProperties.getAccessKeyId())
+                .maxErrorRetry(this.ossProperties.getMaxErrorRetry())
+                .accessKeySecret(this.ossProperties.getAccessKeySecret())
+                .connectionTimeout(this.ossProperties.getConnectionTimeout())
+                .build();
         return factoryBean;
     }
 

@@ -16,7 +16,7 @@ package org.corbin.oss.service;
  */
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.Bucket;
-import org.corbin.oss.base.oss.AliossSupport;
+import org.corbin.oss.base.AliossSupport;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -28,15 +28,6 @@ import org.springframework.util.Assert;
 @Slf4j
 @Service
 public class AliossBucketService {
-//    private final String bucketNameRegex="[a-z]";
-
-//    private AliossSupport aliossSupport;
-//
-//    @Autowired
-//    private AliossBucketService(AliossSupport aliossSupport) {
-//        this.aliossSupport = aliossSupport;
-//    }
-
     /**
      * 创建bucket
      *
