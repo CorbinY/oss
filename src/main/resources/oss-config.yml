@@ -1,0 +1,19 @@
+#此配置文件自定义配置oss的默认属性
+
+alibaba:
+  cloud:
+    oss:
+#      callbackDomain: http://qxem32.natappfree.cc
+      default:
+        #必要初始化属性
+        accessKeyId: LTAIPEDt9ZToEjhi
+        accessKeySecret: SEdNFkpi44xYolRv8q7udAjJjOJEYv
+        endpoint: oss-cn-hangzhou.aliyuncs.com
+        #非必要初始化属性
+        bucketName: my-first-bk2
+        #不能添加httpL://字段
+        callbackDomain: x6t6fe.natappfree.cc
+
+
+
+
