@@ -26,15 +26,6 @@ import org.springframework.util.Assert;
  * @author yin
  */
 public class AliossSupport {
-    /**
-     * 由于使用FactoryBean产生ossclient，
-     * 此处必须使用这种注入方式，不能使用构造方法注入
-     */
-/*    @Autowired
-    private OSSClient ossClient;
-    @Autowired
-    private AliossConfigProperties aliossConfigProperties;*/
-
 
     /**
      * 返回默认ossClient，即使用配置文件初始化的ossclient
@@ -116,8 +107,6 @@ public class AliossSupport {
 //     * @return
 //     */
 //    public OSSClient instanceOssClient(String endpoint, String accessKeyId, String secretAccessKey) {
-//        return new OSSClient(endpoint, accessKeyId, secretAccessKey);
-//    }
-
+//        return new OSSClient(endpo
 
 }

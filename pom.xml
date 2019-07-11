@@ -5,18 +5,30 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.3.RELEASE</version>
+        <version>2.1.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.corbin</groupId>
     <artifactId>oss</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>oss</name>
-    <description>Demo project for Spring Boot</description>
+    <description>OSS 开放式文件存储</description>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>yin</name>
+            <email>corbin_yin@163.com</email>
+        </developer>
+    </developers>
 
     <dependencies>
         <dependency>
