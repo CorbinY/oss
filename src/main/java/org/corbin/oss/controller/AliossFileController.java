@@ -1,4 +1,4 @@
-package com.quanwei.ossbigflie.controller;
+package org.corbin.oss.controller;
 /*
  * Copyright (c) 2018 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +15,8 @@ package com.quanwei.ossbigflie.controller;
  * @author yin
  */
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.aliyun.oss.OSSClient;
-import com.quanwei.ossbigflie.base.oss.AliossConfigProperties;
-import com.quanwei.ossbigflie.service.AliossFileService;
+import org.corbin.oss.base.oss.AliossConfigProperties;
+import org.corbin.oss.service.AliossFileService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;

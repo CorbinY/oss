@@ -8,10 +8,10 @@
         <version>2.0.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.quanwei</groupId>
-    <artifactId>oss-bigflie</artifactId>
+    <groupId>org.corbin</groupId>
+    <artifactId>oss</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>oss-bigflie</name>
+    <name>oss</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

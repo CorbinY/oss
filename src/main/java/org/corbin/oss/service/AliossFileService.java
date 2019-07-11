@@ -1,4 +1,4 @@
-package com.quanwei.ossbigflie.service;
+package org.corbin.oss.service;
 /*
  * Copyright (c) 2018 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.PolicyConditions;
-import com.quanwei.ossbigflie.base.oss.AliossSupport;
+import org.corbin.oss.base.oss.AliossSupport;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,13 +42,13 @@ public class AliossFileService {
     //  private final static String FILE_UPLOAD_CALL_BACK_URL = OSSConnection.callbackDoman() + "/wlan_scope_file_service/file/wechat/upload/callback";
 
 
-    private AliossSupport aliossSupport;
+//    private AliossSupport aliossSupport;
     private AliossBucketService aliossBucketService;
 
     @Autowired
-    private AliossFileService(AliossBucketService aliossBucketService, AliossSupport aliossSupport) {
+    private AliossFileService(AliossBucketService aliossBucketService) {
         this.aliossBucketService = aliossBucketService;
-        this.aliossSupport = aliossSupport;
+//        this.aliossSupport = aliossSupport;
     }
 
     /**
@@ -60,9 +60,9 @@ public class AliossFileService {
      * @return
      */
     public Map<String, String> fileUploadInit(String bucketName, String prefixDir, Long validTime) {
-        OSSClient ossClient = aliossSupport.defaultOssClient();
+        OSSClient ossClient = AliossSupport.defaultOssClient();
         // host的格式为 bucketname.endpoint
-        String host = "https://" + bucketName + "." + aliossSupport.defaultEndpoint();
+        String host = "https://" + bucketName + "." + AliossSupport.defaultEndpoint();
         //    log.info("---------------------callBack is : "+FILE_UPLOAD_CALL_BACK_URL);
 
         //设置policy 签名
@@ -86,14 +86,14 @@ public class AliossFileService {
         String postSignature = ossClient.calculatePostSignature(postPolicy);
 
         Map<String, String> respMap = new LinkedHashMap<String, String>();
-        respMap.put("accessid", aliossSupport.defaultAccessKeyId());
+        respMap.put("accessid", AliossSupport.defaultAccessKeyId());
         respMap.put("policy", encodedPolicy);
         respMap.put("signature", postSignature);
         respMap.put("dir", prefixDir);
         respMap.put("host", host);
         respMap.put("expire", String.valueOf(expireEndTime / 1000));
 
-        String FILE_UPLOAD_CALL_BACK_URL = aliossSupport.defaultCallbackDomain() + "/upload/callback";
+        String FILE_UPLOAD_CALL_BACK_URL = AliossSupport.defaultCallbackDomain() + "/upload/callback";
         JSONObject jasonCallback = new JSONObject();
         jasonCallback.put("callbackUrl", FILE_UPLOAD_CALL_BACK_URL);
         jasonCallback.put("callbackBody",
@@ -102,9 +102,10 @@ public class AliossFileService {
         String base64CallbackBody = BinaryUtil.toBase64String(jasonCallback.toString().getBytes());
         respMap.put("callback", base64CallbackBody);
 
+        System.out.println(ossClient);
         // 由spring 托管无需关闭
-        //ossClient.shutdown();
-
+        ossClient.shutdown();
+        System.out.println(ossClient);
         log.info(FILE_UPLOAD_CALL_BACK_URL);
         return respMap;
 
@@ -112,7 +113,7 @@ public class AliossFileService {
 
 
     public String testTempUoload(String bucketname, String fileName) {
-        OSSClient ossClient = aliossSupport.defaultOssClient();
+        OSSClient ossClient = AliossSupport.defaultOssClient();
         Date date = new Date(System.currentTimeMillis() + 1000 * 200000);
         URL url = ossClient.generatePresignedUrl(bucketname, fileName, date, HttpMethod.GET);
 

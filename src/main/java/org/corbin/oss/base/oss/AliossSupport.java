@@ -1,4 +1,4 @@
-package com.quanwei.ossbigflie.base.oss;
+package org.corbin.oss.base.oss;
 /*
  * Copyright (c) 2018 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,65 +14,95 @@ package com.quanwei.ossbigflie.base.oss;
  *
  * @author yin
  */
-import com.aliyun.oss.OSSClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
+import com.aliyun.oss.OSSClient;
+import org.corbin.oss.base.SpringUtils;
+import org.springframework.util.Assert;
+
+/**
+ * oss 的封装类,
+ *
+ * @author yin
+ */
 public class AliossSupport {
     /**
      * 由于使用FactoryBean产生ossclient，
      * 此处必须使用这种注入方式，不能使用构造方法注入
      */
-    @Autowired
+/*    @Autowired
     private OSSClient ossClient;
     @Autowired
-    private AliossConfigProperties aliossConfigProperties;
+    private AliossConfigProperties aliossConfigProperties;*/
+
 
     /**
      * 返回默认ossClient，即使用配置文件初始化的ossclient
      *
      * @return
      */
-    public  OSSClient defaultOssClient() {
+    public static OSSClient defaultOssClient() {
+        OSSClient ossClient = SpringUtils.getBean("aliossClientFactoryBean");
+        Assert.notNull(ossClient, "未获取到OSSClient bean");
         return ossClient;
     }
 
     /**
-     * 返回默认地域访问名，即使用配置文件初始化
+     * 获取AliossConfigProperties bean
+     *
      * @return
      */
-    public String defaultEndpoint(){
-        return aliossConfigProperties.getEndpoint();
+    public static AliossConfigProperties getAliossConfigProperties() {
+        AliossConfigProperties aliossConfigProperties = SpringUtils.getBean("aliossConfigProperties");
+        Assert.notNull(aliossConfigProperties, "AliossConfigProperties bean 获取失败");
+        return aliossConfigProperties;
     }
+
+
+    /**
+     * 返回默认地域访问名，即使用配置文件初始化
+     *
+     * @return
+     */
+    public static String defaultEndpoint() {
+        return getAliossConfigProperties().getEndpoint();
+    }
+
     /**
      * 返回默认AccessKeyId，，即使用配置文件初始化
+     *
      * @return
      */
-    public String defaultAccessKeyId(){
-        return aliossConfigProperties.getAccessKeyId();
+    public static String defaultAccessKeyId() {
+        return getAliossConfigProperties().getAccessKeyId();
     }
+
     /**
      * 返回默认访问秘钥，即使用配置文件初始化
+     *
      * @return
      */
-    public String defaultAccessKeySecret(){
-        return aliossConfigProperties.getAccessKeySecret();
+    public static String defaultAccessKeySecret() {
+        return getAliossConfigProperties().getAccessKeySecret();
     }
+
     /**
      * 返回默认的bucket，即使用配置文件初始化
+     *
      * @return
      */
-    public String defaultBucketName(){
-        return aliossConfigProperties.getBucketName();
+    public static String defaultBucketName() {
+        return getAliossConfigProperties().getBucketName();
     }
+
     /**
      * 返回默认回调域名，即使用配置文件初始化
+     *
      * @return
      */
-    public String defaultCallbackDomain(){
-        return aliossConfigProperties.getCallbackDomain();
+    public static String defaultCallbackDomain() {
+        return getAliossConfigProperties().getCallbackDomain();
     }
+
     //--------------------------------------------------------------------------------------------------------------
     /**
      * 日后有需要自定义ossclient

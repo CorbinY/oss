@@ -1,4 +1,4 @@
-package com.quanwei.ossbigflie.service;
+package org.corbin.oss.service;
 /*
  * Copyright (c) 2018 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,9 +16,8 @@ package com.quanwei.ossbigflie.service;
  */
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.Bucket;
-import com.quanwei.ossbigflie.base.oss.AliossSupport;
+import org.corbin.oss.base.oss.AliossSupport;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -31,12 +30,12 @@ import org.springframework.util.Assert;
 public class AliossBucketService {
 //    private final String bucketNameRegex="[a-z]";
 
-    private AliossSupport aliossSupport;
-
-    @Autowired
-    private AliossBucketService(AliossSupport aliossSupport) {
-        this.aliossSupport = aliossSupport;
-    }
+//    private AliossSupport aliossSupport;
+//
+//    @Autowired
+//    private AliossBucketService(AliossSupport aliossSupport) {
+//        this.aliossSupport = aliossSupport;
+//    }
 
     /**
      * 创建bucket
@@ -45,7 +44,7 @@ public class AliossBucketService {
      */
     public Bucket crteateBucket(String bucketName) {
         Assert.notNull(bucketName, "bucketName must not be null");
-        OSSClient ossClient = aliossSupport.defaultOssClient();
+        OSSClient ossClient = AliossSupport.defaultOssClient();
 
         //判断bucket 是否存在，不能创建重名bucket，否则会抛异常
         boolean doesExit = isBucketExit(bucketName);
@@ -62,7 +61,7 @@ public class AliossBucketService {
      */
     public boolean isBucketExit(String bucketName) {
         Assert.notNull(bucketName, "bucketName must not be null");
-        OSSClient ossClient = aliossSupport.defaultOssClient();
+        OSSClient ossClient = AliossSupport.defaultOssClient();
         return ossClient.doesBucketExist(bucketName);
     }
 

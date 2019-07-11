@@ -1,4 +1,4 @@
-package com.quanwei.ossbigflie;
+package org.corbin.oss;
 
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
