@@ -1,6 +1,6 @@
 package org.corbin.oss.base.oss;
 /*
- * Copyright (c) 2018 the original author or authors.
+ * Copyright (c) 2018 cn-src
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -11,12 +11,9 @@ package org.corbin.oss.base.oss;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- *
- * @author cn-src
  */
 
-import com.aliyun.oss.ClientConfiguration;
-import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -78,11 +75,11 @@ public class AliossClientFactoryBean implements FactoryBean<OSSClient>, Initiali
         Assert.notNull(this.maxErrorRetry, "'maxErrorRetry' must be not null");
         Assert.notNull(this.connectionTimeout, "'connectionTimeout' must be not null");
 
-        ClientConfiguration configuration = new ClientConfiguration();
+        ClientBuilderConfiguration configuration = new ClientBuilderConfiguration();
         configuration.setConnectionTimeout(this.connectionTimeout);
         configuration.setMaxErrorRetry(this.maxErrorRetry);
 
-        this.ossClient = new OSSClient(this.endpoint, this.accessKeyId, this.accessKeySecret, configuration);
+        this.ossClient = (OSSClient) new OSSClientBuilder().build(this.endpoint, this.accessKeyId, this.accessKeySecret, configuration);
     }
 
 }

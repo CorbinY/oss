@@ -24,10 +24,10 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
         DataSourceAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class,
         HibernateJpaAutoConfiguration.class})
-public class OssBigflieApplication {
+public class OssApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OssBigflieApplication.class, args);
+        SpringApplication.run(OssApplication.class, args);
     }
 
 }
