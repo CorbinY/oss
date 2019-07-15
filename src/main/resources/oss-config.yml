@@ -6,8 +6,8 @@ alibaba:
 #      callbackDomain: http://qxem32.natappfree.cc
       default:
         #必要初始化属性
-        accessKeyId: LTAIPEDt9ZToEjhi
-        accessKeySecret: SEdNFkpi44xYolRv8q7udAjJjOJEYv
+        accessKeyId: LTAIYbADRxcyEsE5
+        accessKeySecret: sEgZK9YBJfS1FjDwbMCzDz4yUrGGCJ
         endpoint: oss-cn-hangzhou.aliyuncs.com
         #非必要初始化属性
         bucketName: my-first-bk2
