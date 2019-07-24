@@ -23,7 +23,44 @@ public class StsServiceSample {
         String roleArn =
                 "acs:ram::1600162136745558:role/user-oss-role";
         String roleSessionName = "session-nswame";
-        String policy = "{\"Statement\": [{\"Action\": \"oss:*\",\"Effect\": \"Allow\",\"Resource\": \"*\"}],\"Version\": \"1\"}";
+        String policy = "{\n" +
+                "  \"Version\": \"1\",\n" +
+                "  \"Statement\": [\n" +
+                "    {\n" +
+                "      \"Effect\": \"Allow\",\n" +
+                "      \"Action\": [\n" +
+                "        \"oss:GetObject\",\n" +
+                "        \"oss:PutObject\",\n" +
+                "        \"oss:ListObjects\"\n" +
+                "      ],\n" +
+                "      \"Resource\": [\n" +
+                "        \"acs:oss:*:*:my-first-bk2/wechat/xiaowei/*\"\n" +
+                "      ],\n" +
+                "      \"Condition\": {}\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"Effect\": \"Allow\",\n" +
+                "      \"Action\": [\n" +
+                "        \"oss:ListObjects\"\n" +
+                "      ],\n" +
+                "      \"Resource\": [\n" +
+                "        \"acs:oss:*:*:my-first-bk2\"\n" +
+                "      ],\n" +
+                "      \"Condition\": {\n" +
+                "        \"StringLike\": {\n" +
+                "          \"oss:Prefix\": [\n" +
+                "            \"\",\n" +
+                "            \"wechat/\",\n" +
+                "            \"wechat/xiaowei/*\"\n" +
+                "          ]\n" +
+                "        },\n" +
+                "        \"StringEquals\": {\n" +
+                "          \"oss:Delimiter\": \"/\"\n" +
+                "        }\n" +
+                "      }\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
 
         System.out.println(policy);
         try {

@@ -20,6 +20,7 @@ import org.corbin.oss.base.oss.AliossConfigProperties;
 import org.corbin.oss.service.AliossFileService;
 import lombok.Getter;
 import lombok.Setter;
+import org.corbin.oss.service.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,11 +36,13 @@ import java.util.Map;
 public class AliossFileController {
     private AliossFileService aliossFileService;
     private AliossConfigProperties aliossConfigProperties;
+    private FileUploadService fileUploadService;
 
     @Autowired
-    private AliossFileController(AliossFileService aliossFileService, AliossConfigProperties aliossConfigProperties) {
+    private AliossFileController(AliossFileService aliossFileService, AliossConfigProperties aliossConfigProperties, FileUploadService fileUploadService) {
         this.aliossFileService = aliossFileService;
         this.aliossConfigProperties = aliossConfigProperties;
+        this.fileUploadService = fileUploadService;
     }
 
     class Wlan {
@@ -93,4 +96,10 @@ public class AliossFileController {
         return JSON.toJSONString(w);
     }
 
+
+    @GetMapping("/test1")
+    public String test1() {
+        fileUploadService.upload();
+        return "true";
+    }
 }

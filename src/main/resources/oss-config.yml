@@ -3,11 +3,10 @@
 alibaba:
   cloud:
     oss:
-#      callbackDomain: http://qxem32.natappfree.cc
       default:
         #必要初始化属性
-        accessKeyId: LTAIYbADRxcyEsE5
-        accessKeySecret: sEgZK9YBJfS1FjDwbMCzDz4yUrGGCJ
+        accessKeyId: LTAIpn6Ibg2sFwhV
+        accessKeySecret: XuJZLedVaeHUsmHZOtmHgSkM7J2FTf
         endpoint: oss-cn-hangzhou.aliyuncs.com
         #非必要初始化属性
         bucketName: my-first-bk2
